@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, Button, View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Button, View, Text, StyleSheet, ScrollView } from 'react-native';
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 import { useCameraDevices, Camera, useFrameProcessor } from 'react-native-vision-camera';
+import { labelImage } from "vision-camera-image-labeler";
+import { runOnJS } from 'react-native-reanimated';
+
 
 function App() {
+  const [items, setItems] = useState("null")
+  
   useEffect(() => {
     requestPermission();
     const unsubscribe = messaging().onMessage(async remoteMessage =>{
@@ -18,11 +23,21 @@ function App() {
   useEffect(()=>{
     getDevices();
   })
-  // const frameProcessor = useFrameProcessor((frame) => {
-  //   'worklet'
-  //   const isHotdog = detectIsHotdog(frame)
-  //   console.log(isHotdog ? "Hotdog!" : "Not Hotdog.")
-  // }, [])
+
+  const frameProcessor = useFrameProcessor((frame) => {
+    'worklet';
+    const labels = labelImage(frame);
+    let items="";
+    for(let x of labels){
+      items+=x.label 
+      items +=", "
+    }
+    items.substr(0, items.length - 2);
+console.log(items)
+    runOnJS(setItems)(items)
+    
+  },[]);
+
 
   const requestPermission = async()=>{
     const authStatus = await messaging().requestPermission()
@@ -72,34 +87,55 @@ function App() {
   }
   const devices = useCameraDevices()
   const device = devices.front
-  console.log(device)
-
-  if (device == null) return (
+  const device1= devices.back
+  const [camera, setCamera]= useState(0)
+  if (device == null && device1 == null) return (
     <View>
       <Text>No detect camera</Text>
       <Button title="Display Notification" onPress={() => onDisplayNotification()} />
       
     </View>
   );
+  const changeCamera=()=>{
+    setCamera((camera+1)%2)
+  }
   
   return (
     <ScrollView>
 
-    
+
       <View style={[styles.container, {flexDirection: "column"}]}>
-        <Text>camera</Text>
+     
         <Button title="Display Notification" onPress={() => onDisplayNotification()} />
-      
-        <View style={{marginTop: 100}}>
-        <Camera
-          style={styles.camera}
-          device={device}
-          isActive={true}
-          // frameProcessor={frameProcessor}
+        <Button 
+          title='Change Camera' 
+          onPress={changeCamera}
         />
+        <Text style={{fontSize:20}}>{items}</Text>
+
+        <View style={{top: 50}}>
+          {camera==0 && 
+            <Camera
+              style={styles.camera}
+              device={device}
+              isActive={true}
+              frameProcessor={frameProcessor}
+              frameProcessorFps={1}
+            />
+          }
+          {camera==1 && 
+            <Camera
+              style={styles.camera}
+              device={device1}
+              isActive={true}
+              frameProcessor={frameProcessor}
+              frameProcessorFps={1}
+            />
+          }
         </View>
+       
       </View>
-      
+
      
     </ScrollView>
   );
@@ -109,13 +145,13 @@ const styles = StyleSheet.create({
   container: {
     
     flex: 1,
-    height: 500,
+    height: 800,
     padding: 20,
     
   },
   camera: {
     ...StyleSheet.absoluteFill,
- 
+    
     height: 400,
   
   },
