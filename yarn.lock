@@ -6078,6 +6078,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-native-accurate-step-counter@^2.0.4":
+  "integrity" "sha512-DHYboQ15QwKw2JUAwDgLG2aEvwYEewaUVL9sWXW4g6O74BtZ+3zKG7FaeBbl9hAfm3yHfD6Vwce+G3/ShSj7Ug=="
+  "resolved" "https://registry.npmjs.org/react-native-accurate-step-counter/-/react-native-accurate-step-counter-2.0.4.tgz"
+  "version" "2.0.4"
+  dependencies:
+    "react-native-shake" "^4.0.2"
+
 "react-native-codegen@^0.70.5":
   "integrity" "sha512-vXqgCWWIWlzsCtwD6hbmwmCleGNJYm+n4xO9VMfzzlF3xt9gjC7/USSMTf/YZlCK/hDwQU412QrNS6A9OH+mag=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.70.5.tgz"
@@ -6105,6 +6112,16 @@
     "lodash.isequal" "^4.5.0"
     "setimmediate" "^1.0.5"
     "string-hash-64" "^1.0.3"
+
+"react-native-shake@^4.0.2":
+  "integrity" "sha512-2niPeI2d5blkbtOwHZ9aoPEue5Uas2IViZKc3jMJ7NIycSQKBw/gRhEYl4mNagCOF6zD6b30lQRBEqhCZvkAoA=="
+  "resolved" "https://registry.npmjs.org/react-native-shake/-/react-native-shake-4.0.2.tgz"
+  "version" "4.0.2"
+
+"react-native-shake@^5.1.1":
+  "integrity" "sha512-h6O8LnFd3LkvoYx7O0afM6rO9fDKomZ1EyomGgKRDyFhinxYIU7Z4uPYtwA4Z1Cd3frEEKTLNKHI1Eu0MOI3Yw=="
+  "resolved" "https://registry.npmjs.org/react-native-shake/-/react-native-shake-5.1.1.tgz"
+  "version" "5.1.1"
 
 "react-native-vision-camera@^2.14.1", "react-native-vision-camera@>=2.0.0":
   "integrity" "sha512-zs8HAuD3pL+T/ngaDUxbvhoqR90b85ab3nm4tO4OCSBDUFhzgDoDXDm+BDhsyQaF0p05Kaskf+rkqCVBI0WEgg=="

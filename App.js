@@ -5,10 +5,12 @@ import notifee from '@notifee/react-native';
 import { useCameraDevices, Camera, useFrameProcessor } from 'react-native-vision-camera';
 import { labelImage } from "vision-camera-image-labeler";
 import { runOnJS } from 'react-native-reanimated';
+import { startCounter, stopCounter } from 'react-native-accurate-step-counter';
 
 
 function App() {
   const [items, setItems] = useState("null")
+  const [steps, setSteps] = useState(0)
   
   useEffect(() => {
     requestPermission();
@@ -23,6 +25,18 @@ function App() {
   useEffect(()=>{
     getDevices();
   })
+
+  useEffect(() => {
+    const config = {
+      default_threshold: 15.0,
+      default_delay: 150000000,
+      cheatInterval: 3000,
+      onStepCountChange: (stepCount) => { setSteps(stepCount) },
+      onCheat: () => { console.log("User is Cheating") }
+    }
+    startCounter(config);
+    return () => { stopCounter() }
+  }, []);
 
   const frameProcessor = useFrameProcessor((frame) => {
     'worklet';
@@ -112,6 +126,8 @@ console.log(items)
           onPress={changeCamera}
         />
         <Text style={{fontSize:20}}>{items}</Text>
+
+        <Text>{steps} </Text>
 
         <View style={{top: 50}}>
           {camera==0 && 
