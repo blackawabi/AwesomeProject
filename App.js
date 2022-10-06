@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, Text, StyleSheet, ScrollView } from 'react-native';
+import { Button, View, Text, Colors, GridList } from 'react-native-ui-lib';
+import { StyleSheet, ScrollView } from 'react-native'
 import messaging from '@react-native-firebase/messaging';
 import notifee from '@notifee/react-native';
 import { useCameraDevices, Camera, useFrameProcessor } from 'react-native-vision-camera';
@@ -106,7 +107,12 @@ console.log(items)
   if (device == null && device1 == null) return (
     <View>
       <Text>No detect camera</Text>
-      <Button title="Display Notification" onPress={() => onDisplayNotification()} />
+      <Button 
+        label={"Display Notification"} 
+        size={Button.sizes.medium} 
+        backgroundColor={Colors.red30} 
+        onPress={() => onDisplayNotification()} 
+      />
       
     </View>
   );
@@ -116,18 +122,23 @@ console.log(items)
   
   return (
     <ScrollView>
-
-
       <View style={[styles.container, {flexDirection: "column"}]}>
-     
-        <Button title="Display Notification" onPress={() => onDisplayNotification()} />
+
         <Button 
-          title='Change Camera' 
+          label={"Display Notification"} 
+          size={Button.sizes.medium} 
+          backgroundColor={Colors.red10}  
+          onPress={() => onDisplayNotification()} 
+        />
+        <Button 
+          label='Change Camera' 
+          size={Button.sizes.medium}
+          backgroundColor={Colors.red10}
           onPress={changeCamera}
         />
-        <Text style={{fontSize:20}}>{items}</Text>
+        <Text style={{fontSize:20, color: Colors.white}}>{items}</Text>
 
-        <Text>{steps} </Text>
+        <Text style={{color: Colors.white}}>{steps} </Text>
 
         <View style={{top: 50}}>
           {camera==0 && 
@@ -172,5 +183,22 @@ const styles = StyleSheet.create({
   
   },
 })
+
+Colors.loadSchemes({
+  light: {
+    screenBG: 'transparent',
+    textColor: Colors.grey10,
+    moonOrSun: Colors.yellow30,
+    mountainForeground: Colors.green30,
+    mountainBackground: Colors.green50
+  },
+  dark: {
+    screenBG: Colors.grey10,
+    textColor: Colors.white,
+    moonOrSun: Colors.grey80,
+    mountainForeground: Colors.violet10,
+    mountainBackground: Colors.violet20
+  }
+});
 
 export default App;

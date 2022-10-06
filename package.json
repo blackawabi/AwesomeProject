@@ -16,8 +16,10 @@
     "react": "18.1.0",
     "react-native": "0.70.1",
     "react-native-accurate-step-counter": "^2.0.4",
+    "react-native-gesture-handler": "^2.7.0",
     "react-native-reanimated": "^2.10.0",
     "react-native-shake": "^5.1.1",
+    "react-native-ui-lib": "^6.21.2",
     "react-native-vision-camera": "^2.14.1",
     "vision-camera-image-labeler": "^0.1.6"
   },
